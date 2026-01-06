@@ -12,12 +12,7 @@ import uuid
 
 # Instructor model
 class Instructor(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
-    full_time = models.BooleanField(default=True)
-    total_learners = models.IntegerField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
@@ -64,7 +59,7 @@ class Course(models.Model):
     is_enrolled = False
 
     def __str__(self):
-        return "Name: " + self.name + "," + \
+        return self.name + "," + \
                "Description: " + self.description
 
 
@@ -95,7 +90,7 @@ class Enrollment(models.Model):
     rating = models.FloatField(default=5.0)
 
 class Question(models.Model):
-    course = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)
     grade = models.IntegerField(default=50)
 
